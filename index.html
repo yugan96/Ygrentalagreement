@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perjanjian Sewa Kendaraan YG Car Rental Enterprise</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+        }
+        .container {
+            max-width: 960px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        input[type="time"],
+        textarea {
+            @apply w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out;
+        }
+        label {
+            @apply block text-sm font-medium text-gray-700 mb-1;
+        }
+        .section-heading {
+            @apply text-xl font-semibold text-gray-800 border-b-2 border-blue-500 pb-2 mb-4 mt-8;
+        }
+        .sub-section-heading {
+            @apply text-lg font-medium text-gray-700 mb-3 mt-6;
+        }
+        .signature-area {
+            height: 80px;
+            border: 1px dashed #ccc;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">YG CAR RENTAL ENTERPRISE</h1>
+            <p class="text-sm text-gray-600">NO.PENDAFTARAN: 202403231043(KT0575623-V)</p>
+            <p class="text-sm text-gray-600">NO25 JALAN JINGGA 2 TAMAN PELANGI 80300 JOHOR BAHRU JOHOR</p>
+            <p class="text-lg font-semibold text-gray-700 mt-2">011-33230674 / 012-5160070</p>
+            <h2 class="text-2xl font-bold text-blue-600 mt-6">PERJANJIAN SEWA KENDERAAN</h2>
+            <p class="text-md text-gray-600">(Vehicle Rental Agreement)</p>
+        </header>
+
+
+        <!-- The form now points to your Getform.io endpoint -->
+        <form action="https://getform.io/f/apjpzeya" method="POST">
+            <!-- BUTIR-BUTIR KENDERAAN (Vehicle Details) -->
+            <h3 class="section-heading">BUTIR-BUTIR KENDERAAN (Vehicle Details)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label for="jenisKenderaan">JENIS KENDERAAN:</label>
+                    <input type="text" id="jenisKenderaan" name="jenisKenderaan" placeholder="Contoh: Perodua Myvi" required>
+                </div>
+                <div>
+                    <label for="noPendaftaranKenderaan">NO.PENDAFTARAN:</label>
+                    <input type="text" id="noPendaftaranKenderaan" name="noPendaftaranKenderaan" placeholder="Contoh: JPM 1234" required>
+                </div>
+                <div>
+                    <label for="tarikhSewa">TARIKH SEWA:</label>
+                    <input type="date" id="tarikhSewa" name="tarikhSewa" required>
+                </div>
+                <div>
+                    <label for="masaSewa">MASA SEWA:</label>
+                    <input type="time" id="masaSewa" name="masaSewa" required>
+                </div>
+                <div>
+                    <label for="tarikhPulang">TARIKH PULANG:</label>
+                    <input type="date" id="tarikhPulang" name="tarikhPulang" required>
+                </div>
+                <div>
+                    <label for="masaPulang">MASA PULANG:</label>
+                    <input type="time" id="masaPulang" name="masaPulang" required>
+                </div>
+                <div>
+                    <label for="bilanganHari">BILANGAN HARI:</label>
+                    <input type="number" id="bilanganHari" name="bilanganHari" min="1" placeholder="Masukkan jumlah hari" required>
+                </div>
+                <div>
+                    <label for="destinasi">DESTINASI:</label>
+                    <input type="text" id="destinasi" name="destinasi" placeholder="Contoh: Kuala Lumpur" required>
+                </div>
+                <div>
+                    <label for="harga">HARGA (RM):</label>
+                    <input type="number" id="harga" name="harga" min="0" step="0.01" placeholder="Masukkan harga sewa" required>
+                </div>
+                <div>
+                    <label for="deposit">DEPOSIT (RM):</label>
+                    <input type="number" id="deposit" name="deposit" min="0" step="0.01" placeholder="Masukkan jumlah deposit" required>
+                </div>
+            </div>
+
+
+            <!-- BUTIR-BUTIR PENYEWA (Renter Details) -->
+            <h3 class="section-heading">BUTIR-BUTIR PENYEWA (Renter Details)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label for="namaPenyewa">NAMA:</label>
+                    <input type="text" id="namaPenyewa" name="namaPenyewa" placeholder="Nama penuh penyewa" required>
+                </div>
+                <div>
+                    <label for="noIC">NO I/C:</label>
+                    <input type="text" id="noIC" name="noIC" pattern="\d{12}" title="Sila masukkan 12 digit nombor IC tanpa sengkang" placeholder="Contoh: 900101015000" required>
+                </div>
+                <div>
+                    <label for="noHP">NO HP:</label>
+                    <input type="text" id="noHP" name="noHP" pattern="^(\+?6?01){1}[0-46-9]-*[0-9]{7,8}$" title="Sila masukkan nombor telefon yang sah" placeholder="Contoh: 0123456789" required>
+                </div>
+                <div class="md:col-span-2">
+                    <label for="alamatPenyewa">ALAMAT:</label>
+                    <textarea id="alamatPenyewa" name="alamatPenyewa" rows="3" placeholder="Alamat penuh penyewa" required></textarea>
+                </div>
+                <div>
+                    <label for="pekerjaan">PEKERJAAN:</label>
+                    <input type="text" id="pekerjaan" name="pekerjaan" placeholder="Contoh: Jurutera" required>
+                </div>
+                <div>
+                    <label for="syarikat">SYARIKAT:</label>
+                    <input type="text" id="syarikat" name="syarikat" placeholder="Nama syarikat (jika ada)">
+                </div>
+            </div>
+
+
+            <!-- BUTIR PENJAMIN (DALAM KES KECEMASAN) (Guarantor Details - In Case of Emergency) -->
+            <h3 class="section-heading">BUTIR PENJAMIN (DALAM KES KECEMASAN) (Guarantor Details - In Case of Emergency)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label for="namaPenjamin">NAMA:</label>
+                    <input type="text" id="namaPenjamin" name="namaPenjamin" placeholder="Nama penuh penjamin" required>
+                </div>
+                <div>
+                    <label for="noICPenjamin">NO I/C:</label>
+                    <input type="text" id="noICPenjamin" name="noICPenjamin" pattern="\d{12}" title="Sila masukkan 12 digit nombor IC tanpa sengkang" placeholder="Contoh: 800202026000" required>
+                </div>
+                <div>
+                    <label for="noHPPenjamin">NO HP:</label>
+                    <input type="text" id="noHPPenjamin" name="noHPPenjamin" pattern="^(\+?6?01){1}[0-46-9]-*[0-9]{7,8}$" title="Sila masukkan nombor telefon yang sah" placeholder="Contoh: 0139876543" required>
+                </div>
+                <div class="md:col-span-2">
+                    <label for="alamatPenjamin">ALAMAT:</label>
+                    <textarea id="alamatPenjamin" name="alamatPenjamin" rows="3" placeholder="Alamat penuh penjamin" required></textarea>
+                </div>
+            </div>
+
+
+            <!-- BUTIR – BUTIR KENDERAAN (Vehicle Details Summary) -->
+            <h3 class="section-heading">BUTIR – BUTIR KENDERAAN (Vehicle Details Summary)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label for="summaryJenisKenderaan">Jenis Kenderaan:</label>
+                    <input type="text" id="summaryJenisKenderaan" name="summaryJenisKenderaan" readonly class="bg-gray-100 cursor-not-allowed">
+                </div>
+                <div>
+                    <label for="summaryNoPendaftaran">No Pendaftaran:</label>
+                    <input type="text" id="summaryNoPendaftaran" name="summaryNoPendaftaran" readonly class="bg-gray-100 cursor-not-allowed">
+                </div>
+                <div>
+                    <label for="summaryTarikhSewa">Tarikh Sewa:</label>
+                    <input type="date" id="summaryTarikhSewa" name="summaryTarikhSewa" readonly class="bg-gray-100 cursor-not-allowed">
+                </div>
+                <div>
+                    <label for="summaryMasaSewa">Masa Sewa:</label>
+                    <input type="time" id="summaryMasaSewa" name="summaryMasaSewa" readonly class="bg-gray-100 cursor-not-allowed">
+                </div>
+                <div>
+                    <label for="summaryTarikhPulang">Tarikh Pulang:</label>
+                    <input type="date" id="summaryTarikhPulang" name="summaryTarikhPulang" readonly class="bg-gray-100 cursor-not-allowed">
+                </div>
+                <div>
+                    <label for="masaPulang">Masa Pulang:</label>
+                    <input type="time" id="masaPulang" name="masaPulang" readonly class="bg-gray-100 cursor-not-allowed">
+                </div>
+                <div>
+                    <label for="bilanganHari">Bil Hari:</label>
+                    <input type="number" id="bilanganHari" name="bilanganHari" readonly class="bg-gray-100 cursor-not-allowed">
+                </div>
+                <div>
+                    <label for="destinasi">DESTINASI:</label>
+                    <input type="text" id="destinasi" name="destinasi" readonly class="bg-gray-100 cursor-not-allowed">
+                </div>
+                <div>
+                    <label for="harga">HARGA (RM):</label>
+                    <input type="number" id="harga" name="harga" readonly class="bg-gray-100 cursor-not-allowed">
+                </div>
+                <div>
+                    <label for="deposit">DEPOSIT (RM):</label>
+                    <input type="number" id="deposit" name="deposit" readonly class="bg-gray-100 cursor-not-allowed">
+                </div>
+            </div>
+
+
+            <!-- MAKLUMAT PENYEWA (Renter Information Summary) -->
+            <h3 class="section-heading">MAKLUMAT PENYEWA (Renter Information Summary)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label for="summaryNamaPenyewa">Nama:</label>
+                    <input type="text" id="summaryNamaPenyewa" name="summaryNamaPenyewa" readonly class="bg-gray-100 cursor-not-allowed">
+                </div>
+                <div>
+                    <label for="summaryNoKP">No K/P:</label>
+                    <input type="text" id="summaryNoKP" name="summaryNoKP" readonly class="bg-gray-100 cursor-not-allowed">
+                </div>
+                <div>
+                    <label for="summaryNoHPTel">No HP/Tel:</label>
+                    <input type="text" id="summaryNoHPTel" name="summaryNoHPTel" readonly class="bg-gray-100 cursor-not-allowed">
+                </div>
+                <div class="md:col-span-2">
+                    <label for="summaryAlamat">Alamat:</label>
+                    <textarea id="summaryAlamat" name="summaryAlamat" rows="3" readonly class="bg-gray-100 cursor-not-allowed"></textarea>
+                </div>
+                <div>
+                    <label for="summaryPekerjaan">Pekerjaan:</label>
+                    <input type="text" id="summaryPekerjaan" name="summaryPekerjaan" readonly class="bg-gray-100 cursor-not-allowed">
+                </div>
+                <div>
+                    <label for="summaryNamaSyarikat">Nama Syarikat:</label>
+                    <input type="text" id="summaryNamaSyarikat" name="summaryNamaSyarikat" readonly class="bg-gray-100 cursor-not-allowed">
+                </div>
+            </div>
+
+
+            <!-- PENJAMIN (SEKIRANYA BERLAKU KECEMASAN) (Guarantor - In Case of Emergency) -->
+            <h3 class="section-heading">PENJAMIN (SEKIRANYA BERLAKU KECEMASAN) (Guarantor - In Case of Emergency)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label for="summaryNamaPenjamin">Nama Penjamin:</label>
+                    <input type="text" id="summaryNamaPenjamin" name="summaryNamaPenjamin" readonly class="bg-gray-100 cursor-not-allowed">
+                </div>
+                <div>
+                    <label for="summaryNoICPenjamin">No I/C Penjamin:</label>
+                    <input type="text" id="summaryNoICPenjamin" name="summaryNoICPenjamin" readonly class="bg-gray-100 cursor-not-allowed">
+                </div>
+                <div>
+                    <label for="summaryNoHPPenjamin">No HP Penjamin:</label>
+                    <input type="text" id="summaryNoHPPenjamin" name="summaryNoHPPenjamin" readonly class="bg-gray-100 cursor-not-allowed">
+                </div>
+                <div class="md:col-span-2">
+                    <label for="summaryAlamatPenjamin">Alamat Penjamin:</label>
+                    <textarea id="summaryAlamatPenjamin" name="summaryAlamatPenjamin" rows="3" readonly class="bg-gray-100 cursor-not-allowed"></textarea>
+                </div>
+            </div>
+
+
+            <!-- TERMA DAN SYARAT (Terms and Conditions) -->
+            <h3 class="section-heading">TERMA DAN SYARAT (Terms and Conditions)</h3>
+            <ul class="list-disc pl-5 text-gray-700 space-y-2 mb-6">
+                <li>PEMILIK berhak menuntut bayaran sebanyak RM10 sejam sekiranya kenderaan dikembalikan melebihi tempoh sewa yang ditetapkan seperti di atas.</li>
+                <li>Kenderaan ini tidak digunakan untuk mana-mana aktiviti jenayah yang melanggar undang-undang Malaysia. PENYEWA bertanggungjawab sepenuhnya terhadap sebarang penggunaan kenderaan yang menyalahi undang-undang atau tidak wajar.</li>
+                <li>Yuran pembersihan sebanyak RM35 akan dikenakan terhadap PENYEWA jika kenderaan dikembalikan dalam keadaan kotor dan berbau.</li>
+                <li>PENYEWA bertanggungjawab terhadap sebarang kerosakan dan kehilangan kenderaan semasa tempoh sewa.</li>
+                <li>Sekiranya berlaku kerosakan/kehilangan kenderaan, PENYEWA bertanggungjawab menanggung segala kos yang dikeluarkan oleh PEMILIK.</li>
+                <li>Dilarang merokok dalam kenderaan. Sekiranya didapati bersalah denda RM100 akan dikenakan buat yuran pembersihan.</li>
+                <li>PENYEWA dilarang membawa haiwan dalam kenderaan ini. Jika didapati bersalah PENYEWA bertanggungjawab membayar denda RM50 buat yuran pembersihan.</li>
+                <li>PENYEWA bertanggungjawab menanggung kos Saman atau kompaun yang diterima semasa tempoh sewa yang ditetapkan seperti di atas.</li>
+            </ul>
+
+
+            <!-- PERAKUAN PENYEWA (Renter's Declaration) -->
+            <h3 class="section-heading">PERAKUAN PENYEWA (Renter's Declaration)</h3>
+            <p class="text-gray-700 mb-6">
+                Saya (PENYEWA) telah membaca dan memahami terma dan syarat dan bersetuju mematuhi semua terma yang ditetapkan.
+                Sekiranya saya gagal mematuhi salah satu terma dan syarat di atas, tindakan undang-undang akan dikenakan terhadap saya.
+            </p>
+
+
+            <!-- Signature Section -->
+            <h3 class="section-heading">Signature Section</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
+                <div>
+                    <h4 class="sub-section-heading">Penyewa (Renter)</h4>
+                    <div class="signature-area mb-4">Tandatangan Penyewa</div>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="namaPenyewaTandatangan">Nama:</label>
+                            <input type="text" id="namaPenyewaTandatangan" name="namaPenyewaTandatangan" placeholder="Nama Penuh Penyewa">
+                        </div>
+                        <div>
+                            <label for="noKPPenyewaTandatangan">No K/P:</label>
+                            <input type="text" id="noKPPenyewaTandatangan" name="noKPPenyewaTandatangan" placeholder="No. K/P Penyewa">
+                        </div>
+                        <div>
+                            <label for="tarikhPenyewaTandatangan">Tarikh:</label>
+                            <input type="date" id="tarikhPenyewaTandatangan" name="tarikhPenyewaTandatangan">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="sub-section-heading">Pemilik (Owner)</h4>
+                    <div class="signature-area mb-4">Tandatangan Pemilik</div>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="namaPemilikTandatangan">Nama:</label>
+                            <input type="text" id="namaPemilikTandatangan" name="namaPemilikTandatangan" placeholder="Nama Penuh Pemilik">
+                        </div>
+                        <div>
+                            <label for="noKPPemilikTandatangan">No K/P:</label>
+                            <input type="text" id="noKPPemilikTandatangan" name="noKPPemilikTandatangan" placeholder="No. K/P Pemilik">
+                        </div>
+                        <div>
+                            <label for="tarikhPemilikTandatangan">Tarikh:</label>
+                            <input type="date" id="tarikhPemilikTandatangan" name="tarikhPemilikTandatangan">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="text-center mt-8">
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105">
+                    Hantar Perjanjian (Submit Agreement)
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+    <script>
+        // JavaScript to automatically populate summary fields from input fields
+        const inputFields = [
+            { id: 'jenisKenderaan', summaryId: 'summaryJenisKenderaan', name: 'jenisKenderaan' },
+            { id: 'noPendaftaranKenderaan', summaryId: 'summaryNoPendaftaran', name: 'noPendaftaranKenderaan' },
+            { id: 'tarikhSewa', summaryId: 'summaryTarikhSewa', name: 'tarikhSewa' },
+            { id: 'masaSewa', summaryId: 'summaryMasaSewa', name: 'masaSewa' },
+            { id: 'tarikhPulang', summaryId: 'summaryTarikhPulang', name: 'tarikhPulang' },
+            { id: 'masaPulang', summaryId: 'summaryMasaPulang', name: 'masaPulang' },
+            { id: 'bilanganHari', summaryId: 'summaryBilHari', name: 'bilanganHari' },
+            { id: 'destinasi', summaryId: 'summaryDestinasi', name: 'destinasi' },
+            { id: 'harga', summaryId: 'summaryHarga', name: 'harga' },
+            { id: 'deposit', summaryId: 'summaryDeposit', name: 'deposit' },
+            { id: 'namaPenyewa', summaryId: 'summaryNamaPenyewa', name: 'namaPenyewa' },
+            { id: 'noIC', summaryId: 'summaryNoKP', name: 'noIC' },
+            { id: 'noHP', summaryId: 'summaryNoHPTel', name: 'noHP' },
+            { id: 'alamatPenyewa', summaryId: 'summaryAlamat', name: 'alamatPenyewa' },
+    
