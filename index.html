@@ -36,6 +36,7 @@
         .sub-section-heading {
             @apply text-lg font-medium text-gray-700 mb-3 mt-6;
         }
+        /* The signature-area class is now decorative/unused for text inputs, but kept for context if you switch later */
         .signature-area {
             height: 80px;
             border: 1px dashed #ccc;
@@ -46,6 +47,7 @@
             justify-content: center;
             color: #888;
             font-size: 0.9rem;
+            margin-bottom: 1rem; /* Added this to keep some spacing if converted back or for conceptual design */
         }
     </style>
 </head>
@@ -252,7 +254,7 @@
 
             ---
             <h3 class="section-heading">TERMS AND CONDITIONS</h3>
-            <ul class="list-disc pl-5 text-gray-700 space-y-2 mb-6">
+            <ul class="list-disc pl-5 text-gray-700 space-y-4 mb-6">
                 <li>**Roles and Responsibilities:** "The Owner" refers to YG Car Rental Enterprise. "The Renter" refers to the individual or entity hiring the vehicle. "The Vehicle" refers to the car identified in this agreement by its type and registration number.</li>
                 <li>**Vehicle Condition & Handover:**
                     <ul>
@@ -317,8 +319,9 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
                 <div>
                     <h4 class="sub-section-heading">Renter</h4>
-                    <div class="signature-area mb-4">Renter's Signature</div>
-                    <div class="space-y-4">
+                    <label for="renterSignedBy">Signed By (Type Full Name):<span class="text-red-500 ml-1">*</span></label>
+                    <input type="text" id="renterSignedBy" name="renterSignedBy" placeholder="Renter's Full Name" required>
+                    <div class="space-y-4 mt-4">
                         <div>
                             <label for="namaPenyewaTandatangan">Name:<span class="text-red-500 ml-1">*</span></label>
                             <input type="text" id="namaPenyewaTandatangan" name="namaPenyewaTandatangan" placeholder="Renter's Full Name" autocomplete="name" required>
@@ -335,19 +338,20 @@
                 </div>
                 <div>
                     <h4 class="sub-section-heading">Owner</h4>
-                    <div class="signature-area mb-4">Owner's Signature</div>
-                    <div class="space-y-4">
+                    <label for="ownerSignedBy">Signed By (Type Full Name):</label>
+                    <input type="text" id="ownerSignedBy" name="ownerSignedBy" placeholder="Owner's Full Name">
+                    <div class="space-y-4 mt-4">
                         <div>
-                            <label for="namaPemilikTandatangan">Name:<span class="text-red-500 ml-1">*</span></label>
-                            <input type="text" id="namaPemilikTandatangan" name="namaPemilikTandatangan" placeholder="Owner's Full Name" autocomplete="name" required>
+                            <label for="namaPemilikTandatangan">Name:</label>
+                            <input type="text" id="namaPemilikTandatangan" name="namaPemilikTandatangan" placeholder="Owner's Full Name" autocomplete="name">
                         </div>
                         <div>
-                            <label for="noKPPemilikTandatangan">I/C No.:<span class="text-red-500 ml-1">*</span></label>
-                            <input type="text" id="noKPPemilikTandatangan" name="noKPPemilikTandatangan" placeholder="Owner's I/C No." pattern="\d{12}" title="Please enter 12 digits of IC number without hyphens." required autocomplete="off">
+                            <label for="noKPPemilikTandatangan">I/C No.:</label>
+                            <input type="text" id="noKPPemilikTandatangan" name="noKPPemilikTandatangan" placeholder="Owner's I/C No." pattern="\d{12}" title="Please enter 12 digits of IC number without hyphens.">
                         </div>
                         <div>
-                            <label for="tarikhPemilikTandatangan">Date:<span class="text-red-500 ml-1">*</span></label>
-                            <input type="date" id="tarikhPemilikTandatangan" name="tarikhPemilikTandatangan" required>
+                            <label for="tarikhPemilikTandatangan">Date:</label>
+                            <input type="date" id="tarikhPemilikTandatangan" name="tarikhPemilikTandatangan">
                         </div>
                     </div>
                 </div>
@@ -408,7 +412,10 @@
                 { id: 'namaPenjamin', summaryId: 'summaryNamaPenjamin' },
                 { id: 'noICPenjamin', summaryId: 'summaryNoICPenjamin' },
                 { id: 'noHPPenjamin', summaryId: 'summaryNoHPPenjamin' },
-                { id: 'alamatPenjamin', summaryId: 'summaryAlamatPenjamin' }
+                { id: 'alamatPenjamin', summaryId: 'summaryAlamatPenjamin' },
+                // New signature fields for summary (summaryId null as they are not directly copied to summary section)
+                { id: 'renterSignedBy', summaryId: null },
+                { id: 'ownerSignedBy', summaryId: null }
             ];
 
             inputFieldsMapping.forEach(field => {
@@ -444,6 +451,7 @@
                 let calculatedDeposit = '';
                 let diffDays = '';
 
+                // Ensure both dates are valid and return date is not before rental date
                 if (tarikhSewaInput.value && tarikhPulangInput.value && pulangDate >= sewaDate) {
                     const diffTime = Math.abs(pulangDate - sewaDate);
                     diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // Add one day to include both start and end dates
@@ -469,7 +477,8 @@
             // --- Helper to determine if a date is a weekend ---
             function isWeekend(dateString) {
                 if (!dateString) return false;
-                const date = new Date(dateString);
+                // Add 'T12:00:00' to avoid timezone issues that might push date back/forward
+                const date = new Date(dateString + 'T12:00:00');
                 const dayOfWeek = date.getDay(); // 0 = Sunday, 6 = Saturday
                 return (dayOfWeek === 0 || dayOfWeek === 6);
             }
@@ -504,17 +513,19 @@
 
 
             // --- Set current date for "Rental Date" and signature fields ---
-            const fixedDate = new Date('2025-07-01T13:52:50'); // Current time: Tuesday, July 1, 2025 at 1:52:50 PM +08
-            const yyyy = fixedDate.getFullYear();
-            const mm = String(fixedDate.getMonth() + 1).padStart(2, '0');
-            const dd = String(fixedDate.getDate()).padStart(2, '0');
+            // Using current date for dynamic behavior in a live form, instead of fixed date
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
             const formattedDate = `${yyyy}-${mm}-${dd}`;
 
             if (tarikhSewaInput) {
                 tarikhSewaInput.value = formattedDate;
             }
             document.getElementById('tarikhPenyewaTandatangan').value = formattedDate;
-            document.getElementById('tarikhPemilikTandatangan').value = formattedDate;
+            // Owner date is now optional, so it's not pre-filled
+            // document.getElementById('tarikhPemilikTandatangan').value = formattedDate; 
 
             // --- Dependent dropdowns (Vehicle Type and Registration No.) ---
             const noPendaftaranSelect = document.getElementById('noPendaftaranKenderaan');
@@ -569,9 +580,15 @@
                 } else {
                     // Re-initialize certain fields after browser's reset completes
                     setTimeout(() => {
-                        tarikhSewaInput.value = formattedDate;
-                        document.getElementById('tarikhPenyewaTandatangan').value = formattedDate;
-                        document.getElementById('tarikhPemilikTandatangan').value = formattedDate;
+                        tarikhSewaInput.value = formattedDate; // Set rental date to today
+                        document.getElementById('tarikhPenyewaTandatangan').value = formattedDate; // Set renter signature date to today
+                        
+                        // Clear owner optional fields on reset
+                        document.getElementById('ownerSignedBy').value = '';
+                        document.getElementById('namaPemilikTandatangan').value = '';
+                        document.getElementById('noKPPemilikTandatangan').value = '';
+                        document.getElementById('tarikhPemilikTandatangan').value = '';
+
                         updateNoPendaftaranOptions(); // Reset vehicle registration options
                         calculateDaysAndDeposit(); // Reset calculated fields
                         calculateRentalPrice(); // Recalculate price on reset
