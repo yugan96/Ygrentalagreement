@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="ms">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perjanjian Sewa Kendaraan YG Car Rental Enterprise</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Vehicle Rental Agreement YG Car Rental Enterprise</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -24,7 +23,8 @@
         input[type="number"],
         input[type="date"],
         input[type="time"],
-        textarea {
+        textarea,
+        select {
             @apply w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out;
         }
         label {
@@ -53,300 +53,539 @@
     <div class="container">
         <header class="text-center mb-8">
             <h1 class="text-3xl font-bold text-gray-900 mb-2">YG CAR RENTAL ENTERPRISE</h1>
-            <p class="text-sm text-gray-600">NO.PENDAFTARAN: 202403231043(KT0575623-V)</p>
+            <p class="text-sm text-gray-600">REGISTRATION NO.: 202403231043(KT0575623-V)</p>
             <p class="text-sm text-gray-600">NO25 JALAN JINGGA 2 TAMAN PELANGI 80300 JOHOR BAHRU JOHOR</p>
             <p class="text-lg font-semibold text-gray-700 mt-2">011-33230674 / 012-5160070</p>
-            <h2 class="text-2xl font-bold text-blue-600 mt-6">PERJANJIAN SEWA KENDERAAN</h2>
-            <p class="text-md text-gray-600">(Vehicle Rental Agreement)</p>
+            <h2 class="text-2xl font-bold text-blue-600 mt-6">VEHICLE RENTAL AGREEMENT</h2>
         </header>
 
-
-        <!-- The form now points to your Getform.io endpoint -->
-        <form action="https://getform.io/f/apjpzeya" method="POST">
-            <!-- BUTIR-BUTIR KENDERAAN (Vehicle Details) -->
-            <h3 class="section-heading">BUTIR-BUTIR KENDERAAN (Vehicle Details)</h3>
+        <form action="https://getform.io/f/apjpzeya" method="POST" id="rentalForm">
+            <h3 class="section-heading">VEHICLE DETAILS</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
-                    <label for="jenisKenderaan">JENIS KENDERAAN:</label>
-                    <input type="text" id="jenisKenderaan" name="jenisKenderaan" placeholder="Contoh: Perodua Myvi" required>
+                    <label for="jenisKenderaan">VEHICLE TYPE:<span class="text-red-500 ml-1">*</span></label>
+                    <select id="jenisKenderaan" name="jenisKenderaan" required>
+                        <option value="">Select Vehicle Type</option>
+                        <option value="Perodua Myvi X">Perodua Myvi X</option>
+                        <option value="Perodua Myvi 1500 SE">Perodua Myvi 1500 SE</option>
+                    </select>
                 </div>
                 <div>
-                    <label for="noPendaftaranKenderaan">NO.PENDAFTARAN:</label>
-                    <input type="text" id="noPendaftaranKenderaan" name="noPendaftaranKenderaan" placeholder="Contoh: JPM 1234" required>
+                    <label for="noPendaftaranKenderaan">REGISTRATION NO.:<span class="text-red-500 ml-1">*</span></label>
+                    <select id="noPendaftaranKenderaan" name="noPendaftaranKenderaan" required disabled>
+                        <option value="">Please Select Vehicle Type First</option>
+                    </select>
                 </div>
                 <div>
-                    <label for="tarikhSewa">TARIKH SEWA:</label>
+                    <label for="tarikhSewa">RENTAL DATE:<span class="text-red-500 ml-1">*</span></label>
                     <input type="date" id="tarikhSewa" name="tarikhSewa" required>
                 </div>
                 <div>
-                    <label for="masaSewa">MASA SEWA:</label>
+                    <label for="masaSewa">RENTAL TIME:<span class="text-red-500 ml-1">*</span></label>
                     <input type="time" id="masaSewa" name="masaSewa" required>
                 </div>
                 <div>
-                    <label for="tarikhPulang">TARIKH PULANG:</label>
+                    <label for="tarikhPulang">RETURN DATE:<span class="text-red-500 ml-1">*</span></label>
                     <input type="date" id="tarikhPulang" name="tarikhPulang" required>
                 </div>
                 <div>
-                    <label for="masaPulang">MASA PULANG:</label>
+                    <label for="masaPulang">RETURN TIME:<span class="text-red-500 ml-1">*</span></label>
                     <input type="time" id="masaPulang" name="masaPulang" required>
                 </div>
                 <div>
-                    <label for="bilanganHari">BILANGAN HARI:</label>
-                    <input type="number" id="bilanganHari" name="bilanganHari" min="1" placeholder="Masukkan jumlah hari" required>
+                    <label for="bilanganHari">NUMBER OF DAYS:</label>
+                    <input type="number" id="bilanganHari" name="bilanganHari" min="1" placeholder="Auto-calculated" readonly class="bg-gray-100 cursor-not-allowed">
                 </div>
                 <div>
-                    <label for="destinasi">DESTINASI:</label>
-                    <input type="text" id="destinasi" name="destinasi" placeholder="Contoh: Kuala Lumpur" required>
+                    <label for="destinasi">DESTINATION:<span class="text-red-500 ml-1">*</span></label>
+                    <input type="text" id="destinasi" name="destinasi" placeholder="Example: Kuala Lumpur" required autocomplete="address-level2">
                 </div>
                 <div>
-                    <label for="harga">HARGA (RM):</label>
-                    <input type="number" id="harga" name="harga" min="0" step="0.01" placeholder="Masukkan harga sewa" required>
+                    <label for="harga">PRICE (RM):<span class="text-red-500 ml-1">*</span></label>
+                    <input type="number" id="harga" name="harga" min="0" step="0.01" placeholder="Enter rental price" required>
                 </div>
                 <div>
                     <label for="deposit">DEPOSIT (RM):</label>
-                    <input type="number" id="deposit" name="deposit" min="0" step="0.01" placeholder="Masukkan jumlah deposit" required>
+                    <input type="number" id="deposit" name="deposit" min="0" step="0.01" placeholder="Auto-calculated" readonly class="bg-gray-100 cursor-not-allowed">
                 </div>
             </div>
 
-
-            <!-- BUTIR-BUTIR PENYEWA (Renter Details) -->
-            <h3 class="section-heading">BUTIR-BUTIR PENYEWA (Renter Details)</h3>
+            <h3 class="section-heading">RENTER DETAILS</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
-                    <label for="namaPenyewa">NAMA:</label>
-                    <input type="text" id="namaPenyewa" name="namaPenyewa" placeholder="Nama penuh penyewa" required>
+                    <label for="namaPenyewa">NAME:<span class="text-red-500 ml-1">*</span></label>
+                    <input type="text" id="namaPenyewa" name="namaPenyewa" placeholder="Renter's full name" required autocomplete="name">
                 </div>
                 <div>
-                    <label for="noIC">NO I/C:</label>
-                    <input type="text" id="noIC" name="noIC" pattern="\d{12}" title="Sila masukkan 12 digit nombor IC tanpa sengkang" placeholder="Contoh: 900101015000" required>
+                    <label for="noIC">I/C NO.:<span class="text-red-500 ml-1">*</span></label>
+                    <input type="text" id="noIC" name="noIC" pattern="\d{12}" title="Please enter 12 digits of IC number without hyphens. Example: 900101015000" placeholder="Example: 900101015000" required autocomplete="off">
                 </div>
                 <div>
-                    <label for="noHP">NO HP:</label>
-                    <input type="text" id="noHP" name="noHP" pattern="^(\+?6?01){1}[0-46-9]-*[0-9]{7,8}$" title="Sila masukkan nombor telefon yang sah" placeholder="Contoh: 0123456789" required>
+                    <label for="noHP">MOBILE NO.:<span class="text-red-500 ml-1">*</span></label>
+                    <input type="tel" id="noHP" name="noHP" pattern="^(\+?6?01){1}[0-46-9]-*[0-9]{7,8}$" title="Please enter a valid phone number. Example: 0123456789" placeholder="Example: 0123456789" required autocomplete="tel-national">
                 </div>
                 <div class="md:col-span-2">
-                    <label for="alamatPenyewa">ALAMAT:</label>
-                    <textarea id="alamatPenyewa" name="alamatPenyewa" rows="3" placeholder="Alamat penuh penyewa" required></textarea>
+                    <label for="alamatPenyewa">ADDRESS:<span class="text-red-500 ml-1">*</span></label>
+                    <textarea id="alamatPenyewa" name="alamatPenyewa" rows="3" placeholder="Renter's full address" required autocomplete="street-address"></textarea>
                 </div>
                 <div>
-                    <label for="pekerjaan">PEKERJAAN:</label>
-                    <input type="text" id="pekerjaan" name="pekerjaan" placeholder="Contoh: Jurutera" required>
+                    <label for="pekerjaan">OCCUPATION:<span class="text-red-500 ml-1">*</span></label>
+                    <input type="text" id="pekerjaan" name="pekerjaan" placeholder="Example: Engineer" required autocomplete="occupation">
                 </div>
                 <div>
-                    <label for="syarikat">SYARIKAT:</label>
-                    <input type="text" id="syarikat" name="syarikat" placeholder="Nama syarikat (jika ada)">
+                    <label for="syarikat">COMPANY:</label>
+                    <input type="text" id="syarikat" name="syarikat" placeholder="Company name (if any)" autocomplete="organization">
                 </div>
             </div>
 
-
-            <!-- BUTIR PENJAMIN (DALAM KES KECEMASAN) (Guarantor Details - In Case of Emergency) -->
-            <h3 class="section-heading">BUTIR PENJAMIN (DALAM KES KECEMASAN) (Guarantor Details - In Case of Emergency)</h3>
+            <h3 class="section-heading">GUARANTOR DETAILS (IN CASE OF EMERGENCY)</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
-                    <label for="namaPenjamin">NAMA:</label>
-                    <input type="text" id="namaPenjamin" name="namaPenjamin" placeholder="Nama penuh penjamin" required>
+                    <label for="namaPenjamin">NAME:<span class="text-red-500 ml-1">*</span></label>
+                    <input type="text" id="namaPenjamin" name="namaPenjamin" placeholder="Guarantor's full name" required autocomplete="name">
                 </div>
                 <div>
-                    <label for="noICPenjamin">NO I/C:</label>
-                    <input type="text" id="noICPenjamin" name="noICPenjamin" pattern="\d{12}" title="Sila masukkan 12 digit nombor IC tanpa sengkang" placeholder="Contoh: 800202026000" required>
+                    <label for="noICPenjamin">I/C NO.:<span class="text-red-500 ml-1">*</span></label>
+                    <input type="text" id="noICPenjamin" name="noICPenjamin" pattern="\d{12}" title="Please enter 12 digits of IC number without hyphens. Example: 800202026000" placeholder="Example: 800202026000" required autocomplete="off">
                 </div>
                 <div>
-                    <label for="noHPPenjamin">NO HP:</label>
-                    <input type="text" id="noHPPenjamin" name="noHPPenjamin" pattern="^(\+?6?01){1}[0-46-9]-*[0-9]{7,8}$" title="Sila masukkan nombor telefon yang sah" placeholder="Contoh: 0139876543" required>
+                    <label for="noHPPenjamin">MOBILE NO.:<span class="text-red-500 ml-1">*</span></label>
+                    <input type="tel" id="noHPPenjamin" name="noHPPenjamin" pattern="^(\+?6?01){1}[0-46-9]-*[0-9]{7,8}$" title="Please enter a valid phone number. Example: 0139876543" placeholder="Example: 0139876543" required autocomplete="tel-national">
                 </div>
                 <div class="md:col-span-2">
-                    <label for="alamatPenjamin">ALAMAT:</label>
-                    <textarea id="alamatPenjamin" name="alamatPenjamin" rows="3" placeholder="Alamat penuh penjamin" required></textarea>
+                    <label for="alamatPenjamin">ADDRESS:<span class="text-red-500 ml-1">*</span></label>
+                    <textarea id="alamatPenjamin" name="alamatPenjamin" rows="3" placeholder="Guarantor's full address" required autocomplete="street-address"></textarea>
                 </div>
             </div>
 
-
-            <!-- BUTIR – BUTIR KENDERAAN (Vehicle Details Summary) -->
-            <h3 class="section-heading">BUTIR – BUTIR KENDERAAN (Vehicle Details Summary)</h3>
+            <h3 class="section-heading">VEHICLE DETAILS SUMMARY</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
-                    <label for="summaryJenisKenderaan">Jenis Kenderaan:</label>
+                    <label for="summaryJenisKenderaan">Vehicle Type:</label>
                     <input type="text" id="summaryJenisKenderaan" name="summaryJenisKenderaan" readonly class="bg-gray-100 cursor-not-allowed">
                 </div>
                 <div>
-                    <label for="summaryNoPendaftaran">No Pendaftaran:</label>
+                    <label for="summaryNoPendaftaran">Registration No.:</label>
                     <input type="text" id="summaryNoPendaftaran" name="summaryNoPendaftaran" readonly class="bg-gray-100 cursor-not-allowed">
                 </div>
                 <div>
-                    <label for="summaryTarikhSewa">Tarikh Sewa:</label>
+                    <label for="summaryTarikhSewa">Rental Date:</label>
                     <input type="date" id="summaryTarikhSewa" name="summaryTarikhSewa" readonly class="bg-gray-100 cursor-not-allowed">
                 </div>
                 <div>
-                    <label for="summaryMasaSewa">Masa Sewa:</label>
+                    <label for="summaryMasaSewa">Rental Time:</label>
                     <input type="time" id="summaryMasaSewa" name="summaryMasaSewa" readonly class="bg-gray-100 cursor-not-allowed">
                 </div>
                 <div>
-                    <label for="summaryTarikhPulang">Tarikh Pulang:</label>
+                    <label for="summaryTarikhPulang">Return Date:</label>
                     <input type="date" id="summaryTarikhPulang" name="summaryTarikhPulang" readonly class="bg-gray-100 cursor-not-allowed">
                 </div>
                 <div>
-                    <label for="masaPulang">Masa Pulang:</label>
-                    <input type="time" id="masaPulang" name="masaPulang" readonly class="bg-gray-100 cursor-not-allowed">
+                    <label for="summaryMasaPulang">Return Time:</label>
+                    <input type="time" id="summaryMasaPulang" name="summaryMasaPulang" readonly class="bg-gray-100 cursor-not-allowed">
                 </div>
                 <div>
-                    <label for="bilanganHari">Bil Hari:</label>
-                    <input type="number" id="bilanganHari" name="bilanganHari" readonly class="bg-gray-100 cursor-not-allowed">
+                    <label for="summaryBilanganHari">No. of Days:</label>
+                    <input type="number" id="summaryBilanganHari" name="summaryBilanganHari" readonly class="bg-gray-100 cursor-not-allowed">
                 </div>
                 <div>
-                    <label for="destinasi">DESTINASI:</label>
-                    <input type="text" id="destinasi" name="destinasi" readonly class="bg-gray-100 cursor-not-allowed">
+                    <label for="summaryDestinasi">DESTINATION:</label>
+                    <input type="text" id="summaryDestinasi" name="summaryDestinasi" readonly class="bg-gray-100 cursor-not-allowed">
                 </div>
                 <div>
-                    <label for="harga">HARGA (RM):</label>
-                    <input type="number" id="harga" name="harga" readonly class="bg-gray-100 cursor-not-allowed">
+                    <label for="summaryHarga">PRICE (RM):</label>
+                    <input type="number" id="summaryHarga" name="summaryHarga" readonly class="bg-gray-100 cursor-not-allowed">
                 </div>
                 <div>
-                    <label for="deposit">DEPOSIT (RM):</label>
-                    <input type="number" id="deposit" name="deposit" readonly class="bg-gray-100 cursor-not-allowed">
+                    <label for="summaryDeposit">DEPOSIT (RM):</label>
+                    <input type="number" id="summaryDeposit" name="summaryDeposit" readonly class="bg-gray-100 cursor-not-allowed">
                 </div>
             </div>
 
-
-            <!-- MAKLUMAT PENYEWA (Renter Information Summary) -->
-            <h3 class="section-heading">MAKLUMAT PENYEWA (Renter Information Summary)</h3>
+            <h3 class="section-heading">RENTER INFORMATION SUMMARY</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
-                    <label for="summaryNamaPenyewa">Nama:</label>
+                    <label for="summaryNamaPenyewa">Name:</label>
                     <input type="text" id="summaryNamaPenyewa" name="summaryNamaPenyewa" readonly class="bg-gray-100 cursor-not-allowed">
                 </div>
                 <div>
-                    <label for="summaryNoKP">No K/P:</label>
+                    <label for="summaryNoKP">I/C No.:</label>
                     <input type="text" id="summaryNoKP" name="summaryNoKP" readonly class="bg-gray-100 cursor-not-allowed">
                 </div>
                 <div>
-                    <label for="summaryNoHPTel">No HP/Tel:</label>
+                    <label for="summaryNoHPTel">Mobile/Tel No.:</label>
                     <input type="text" id="summaryNoHPTel" name="summaryNoHPTel" readonly class="bg-gray-100 cursor-not-allowed">
                 </div>
                 <div class="md:col-span-2">
-                    <label for="summaryAlamat">Alamat:</label>
+                    <label for="summaryAlamat">Address:</label>
                     <textarea id="summaryAlamat" name="summaryAlamat" rows="3" readonly class="bg-gray-100 cursor-not-allowed"></textarea>
                 </div>
                 <div>
-                    <label for="summaryPekerjaan">Pekerjaan:</label>
+                    <label for="summaryPekerjaan">Occupation:</label>
                     <input type="text" id="summaryPekerjaan" name="summaryPekerjaan" readonly class="bg-gray-100 cursor-not-allowed">
                 </div>
                 <div>
-                    <label for="summaryNamaSyarikat">Nama Syarikat:</label>
+                    <label for="summaryNamaSyarikat">Company Name:</label>
                     <input type="text" id="summaryNamaSyarikat" name="summaryNamaSyarikat" readonly class="bg-gray-100 cursor-not-allowed">
                 </div>
             </div>
 
-
-            <!-- PENJAMIN (SEKIRANYA BERLAKU KECEMASAN) (Guarantor - In Case of Emergency) -->
-            <h3 class="section-heading">PENJAMIN (SEKIRANYA BERLAKU KECEMASAN) (Guarantor - In Case of Emergency)</h3>
+            <h3 class="section-heading">GUARANTOR (IN CASE OF EMERGENCY)</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
-                    <label for="summaryNamaPenjamin">Nama Penjamin:</label>
+                    <label for="summaryNamaPenjamin">Guarantor Name:</label>
                     <input type="text" id="summaryNamaPenjamin" name="summaryNamaPenjamin" readonly class="bg-gray-100 cursor-not-allowed">
                 </div>
                 <div>
-                    <label for="summaryNoICPenjamin">No I/C Penjamin:</label>
+                    <label for="summaryNoICPenjamin">Guarantor I/C No.:</label>
                     <input type="text" id="summaryNoICPenjamin" name="summaryNoICPenjamin" readonly class="bg-gray-100 cursor-not-allowed">
                 </div>
                 <div>
-                    <label for="summaryNoHPPenjamin">No HP Penjamin:</label>
+                    <label for="summaryNoHPPenjamin">Guarantor Mobile No.:</label>
                     <input type="text" id="summaryNoHPPenjamin" name="summaryNoHPPenjamin" readonly class="bg-gray-100 cursor-not-allowed">
                 </div>
                 <div class="md:col-span-2">
-                    <label for="summaryAlamatPenjamin">Alamat Penjamin:</label>
-                    <textarea id="summaryAlamatPenjamin" name="summaryAlamatPenjamin" rows="3" readonly class="bg-gray-100 cursor-not-allowed"></textarea>
+                    <label for="summaryAlamatPenjamin">Guarantor Address:</label>
+                    <input type="text" id="summaryAlamatPenjamin" name="summaryAlamatPenjamin" readonly class="bg-gray-100 cursor-not-allowed">
                 </div>
             </div>
 
-
-            <!-- TERMA DAN SYARAT (Terms and Conditions) -->
-            <h3 class="section-heading">TERMA DAN SYARAT (Terms and Conditions)</h3>
+            ---
+            <h3 class="section-heading">TERMS AND CONDITIONS</h3>
             <ul class="list-disc pl-5 text-gray-700 space-y-2 mb-6">
-                <li>PEMILIK berhak menuntut bayaran sebanyak RM10 sejam sekiranya kenderaan dikembalikan melebihi tempoh sewa yang ditetapkan seperti di atas.</li>
-                <li>Kenderaan ini tidak digunakan untuk mana-mana aktiviti jenayah yang melanggar undang-undang Malaysia. PENYEWA bertanggungjawab sepenuhnya terhadap sebarang penggunaan kenderaan yang menyalahi undang-undang atau tidak wajar.</li>
-                <li>Yuran pembersihan sebanyak RM35 akan dikenakan terhadap PENYEWA jika kenderaan dikembalikan dalam keadaan kotor dan berbau.</li>
-                <li>PENYEWA bertanggungjawab terhadap sebarang kerosakan dan kehilangan kenderaan semasa tempoh sewa.</li>
-                <li>Sekiranya berlaku kerosakan/kehilangan kenderaan, PENYEWA bertanggungjawab menanggung segala kos yang dikeluarkan oleh PEMILIK.</li>
-                <li>Dilarang merokok dalam kenderaan. Sekiranya didapati bersalah denda RM100 akan dikenakan buat yuran pembersihan.</li>
-                <li>PENYEWA dilarang membawa haiwan dalam kenderaan ini. Jika didapati bersalah PENYEWA bertanggungjawab membayar denda RM50 buat yuran pembersihan.</li>
-                <li>PENYEWA bertanggungjawab menanggung kos Saman atau kompaun yang diterima semasa tempoh sewa yang ditetapkan seperti di atas.</li>
+                <li>**Roles and Responsibilities:** "The Owner" refers to YG Car Rental Enterprise. "The Renter" refers to the individual or entity hiring the vehicle. "The Vehicle" refers to the car identified in this agreement by its type and registration number.</li>
+                <li>**Vehicle Condition & Handover:**
+                    <ul>
+                        <li>Before commencement of the rental period, the Renter and the Owner shall jointly inspect the vehicle for any existing damage. Any pre-existing damage will be recorded in writing on a Vehicle Condition Report and acknowledged by both parties.</li>
+                        <li>The Renter is encouraged to take their own photographs or video of the vehicle's exterior and interior condition prior to departure as additional proof of condition.</li>
+                        <li>The vehicle is provided with a full tank of fuel and must be returned with a full tank. A refueling charge of **RM50**, plus the cost of missing fuel, will be applied if the vehicle is not returned with a full tank.</li>
+                        <li>A cleaning fee of **RM35** will be imposed if the vehicle is returned in an excessively dirty condition (e.g., excessive mud, food spills, unusual stains, pet hair) or with persistent odors (e.g., smoke, strong food smells).</li>
+                    </ul>
+                </li>
+                <li>**Late Return Policy:** The Owner reserves the right to claim a payment of **RM10 per hour** if the vehicle is returned beyond the stipulated rental period. If the delay exceeds **4 hours**, a full day's rental rate will be charged in addition to the late fees, unless prior arrangements have been made and agreed upon by the Owner.</li>
+                <li>**Usage Restrictions and Prohibited Activities:**
+                    <ul>
+                        <li>The vehicle is permitted for use only within **Peninsular Malaysia**. Unauthorized travel outside this designated area will incur penalties and void insurance coverage.</li>
+                        <li>The vehicle shall **NOT** be used for any criminal activities that violate Malaysian laws. The Renter is solely responsible for any unlawful or improper use of the vehicle.</li>
+                        <li>The vehicle shall **NOT** be used for:
+                            <ul>
+                                <li>Carrying passengers or goods for hire or reward (unless explicitly agreed otherwise).</li>
+                                <li>Towing or pushing any vehicle or object.</li>
+                                <li>Racing, rallying, or off-road driving.</li>
+                                <li>Carrying a number of passengers exceeding the vehicle's seating capacity.</li>
+                            </ul>
+                        </li>
+                        <li>Smoking is strictly prohibited in the vehicle. A cleaning fee of **RM100** will be imposed if found guilty of smoking inside the vehicle.</li>
+                        <li>The Renter is prohibited from bringing animals into the vehicle. A cleaning fee of **RM50** will be imposed if found guilty.</li>
+                    </ul>
+                </li>
+                <li>**Insurance Coverage and Liability:**
+                    <ul>
+                        <li>The rental includes basic insurance coverage. However, in the event of any damage to the vehicle or third-party property, the Renter is responsible for an **insurance excess/deductible of up to RM1500** per incident, regardless of fault. This amount will be deducted from the deposit or charged separately if the deposit is insufficient.</li>
+                        <li>**Insurance coverage will be void if:**
+                            <ul>
+                                <li>The vehicle is driven by an unauthorized person not listed in this agreement.</li>
+                                <li>The Renter is found to be under the influence of alcohol or drugs.</li>
+                                <li>Damage occurs due to reckless driving, negligence, or driving on unpaved/unsuitable roads.</li>
+                                <li>Keys are lost or damaged (cost of replacement keys and vehicle recovery/reprogramming will be borne by the Renter).</li>
+                            </ul>
+                        </li>
+                        <li>In the event of damage or loss of the vehicle, the Renter is responsible for bearing all costs incurred by the Owner.</li>
+                        <li>The Renter is responsible for bearing the cost of any summons or compounds received during the stipulated rental period.</li>
+                    </ul>
+                </li>
+                <li>**Deposit Usage and Refund Policy:**
+                    <ul>
+                        <li>The deposit serves as a security bond against potential damages, cleaning fees, late return charges, traffic fines, and any other outstanding liabilities incurred during the rental period.</li>
+                        <li>The deposit will be refunded within **7 to 14 business days** after the vehicle is returned, provided it is in satisfactory condition and all terms of the agreement have been met.</li>
+                        <li>Deductions from the deposit may include, but are not limited to: late return charges, cleaning fees, refueling charges, traffic fines/penalties, minor damages not covered by insurance, or the insurance excess.</li>
+                    </ul>
+                </li>
+                <li>**Breakdown and Emergency Procedures:** In case of a breakdown, mechanical fault, or emergency, the Renter **MUST immediately notify the Owner** at 011-33230674 / 012-5160070 and relevant authorities (Police, if necessary). Do not attempt any repairs without prior authorization from the Owner.</li>
+                <li>**Dispute Resolution:** Any disputes arising from this agreement shall first be attempted to be resolved amicably between the Renter and the Owner. If a resolution cannot be reached, the dispute shall be governed by the laws of Malaysia and be subject to the jurisdiction of the courts in Johor Bahru, Johor.</li>
             </ul>
 
-
-            <!-- PERAKUAN PENYEWA (Renter's Declaration) -->
-            <h3 class="section-heading">PERAKUAN PENYEWA (Renter's Declaration)</h3>
+            ---
+            <h3 class="section-heading">RENTER'S DECLARATION</h3>
             <p class="text-gray-700 mb-6">
-                Saya (PENYEWA) telah membaca dan memahami terma dan syarat dan bersetuju mematuhi semua terma yang ditetapkan.
-                Sekiranya saya gagal mematuhi salah satu terma dan syarat di atas, tindakan undang-undang akan dikenakan terhadap saya.
+                I (The Renter) have read, understood, and agreed to all the terms and conditions herein.
+                I further agree to abide by all the stipulated terms, and understand that failure to comply may result in legal action or forfeiture of the deposit.
             </p>
 
-
-            <!-- Signature Section -->
-            <h3 class="section-heading">Signature Section</h3>
+            ---
+            <h3 class="section-heading">SIGNATURE SECTION</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
                 <div>
-                    <h4 class="sub-section-heading">Penyewa (Renter)</h4>
-                    <div class="signature-area mb-4">Tandatangan Penyewa</div>
+                    <h4 class="sub-section-heading">Renter</h4>
+                    <div class="signature-area mb-4">Renter's Signature</div>
                     <div class="space-y-4">
                         <div>
-                            <label for="namaPenyewaTandatangan">Nama:</label>
-                            <input type="text" id="namaPenyewaTandatangan" name="namaPenyewaTandatangan" placeholder="Nama Penuh Penyewa">
+                            <label for="namaPenyewaTandatangan">Name:<span class="text-red-500 ml-1">*</span></label>
+                            <input type="text" id="namaPenyewaTandatangan" name="namaPenyewaTandatangan" placeholder="Renter's Full Name" autocomplete="name" required>
                         </div>
                         <div>
-                            <label for="noKPPenyewaTandatangan">No K/P:</label>
-                            <input type="text" id="noKPPenyewaTandatangan" name="noKPPenyewaTandatangan" placeholder="No. K/P Penyewa">
+                            <label for="noKPPenyewaTandatangan">I/C No.:<span class="text-red-500 ml-1">*</span></label>
+                            <input type="text" id="noKPPenyewaTandatangan" name="noKPPenyewaTandatangan" placeholder="Renter's I/C No." pattern="\d{12}" title="Please enter 12 digits of IC number without hyphens." required autocomplete="off">
                         </div>
                         <div>
-                            <label for="tarikhPenyewaTandatangan">Tarikh:</label>
-                            <input type="date" id="tarikhPenyewaTandatangan" name="tarikhPenyewaTandatangan">
+                            <label for="tarikhPenyewaTandatangan">Date:<span class="text-red-500 ml-1">*</span></label>
+                            <input type="date" id="tarikhPenyewaTandatangan" name="tarikhPenyewaTandatangan" required>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <h4 class="sub-section-heading">Pemilik (Owner)</h4>
-                    <div class="signature-area mb-4">Tandatangan Pemilik</div>
+                    <h4 class="sub-section-heading">Owner</h4>
+                    <div class="signature-area mb-4">Owner's Signature</div>
                     <div class="space-y-4">
                         <div>
-                            <label for="namaPemilikTandatangan">Nama:</label>
-                            <input type="text" id="namaPemilikTandatangan" name="namaPemilikTandatangan" placeholder="Nama Penuh Pemilik">
+                            <label for="namaPemilikTandatangan">Name:<span class="text-red-500 ml-1">*</span></label>
+                            <input type="text" id="namaPemilikTandatangan" name="namaPemilikTandatangan" placeholder="Owner's Full Name" autocomplete="name" required>
                         </div>
                         <div>
-                            <label for="noKPPemilikTandatangan">No K/P:</label>
-                            <input type="text" id="noKPPemilikTandatangan" name="noKPPemilikTandatangan" placeholder="No. K/P Pemilik">
+                            <label for="noKPPemilikTandatangan">I/C No.:<span class="text-red-500 ml-1">*</span></label>
+                            <input type="text" id="noKPPemilikTandatangan" name="noKPPemilikTandatangan" placeholder="Owner's I/C No." pattern="\d{12}" title="Please enter 12 digits of IC number without hyphens." required autocomplete="off">
                         </div>
                         <div>
-                            <label for="tarikhPemilikTandatangan">Tarikh:</label>
-                            <input type="date" id="tarikhPemilikTandatangan" name="tarikhPemilikTandatangan">
+                            <label for="tarikhPemilikTandatangan">Date:<span class="text-red-500 ml-1">*</span></label>
+                            <input type="date" id="tarikhPemilikTandatangan" name="tarikhPemilikTandatangan" required>
                         </div>
                     </div>
                 </div>
             </div>
 
-
             <div class="text-center mt-8">
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105">
-                    Hantar Perjanjian (Submit Agreement)
+                <button type="reset" id="resetBtn" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 mr-4">
+                    Reset Form
+                </button>
+                <button type="submit" id="submitBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105" disabled>
+                    Submit Agreement
                 </button>
             </div>
         </form>
     </div>
 
-
     <script>
-        // JavaScript to automatically populate summary fields from input fields
-        const inputFields = [
-            { id: 'jenisKenderaan', summaryId: 'summaryJenisKenderaan', name: 'jenisKenderaan' },
-            { id: 'noPendaftaranKenderaan', summaryId: 'summaryNoPendaftaran', name: 'noPendaftaranKenderaan' },
-            { id: 'tarikhSewa', summaryId: 'summaryTarikhSewa', name: 'tarikhSewa' },
-            { id: 'masaSewa', summaryId: 'summaryMasaSewa', name: 'masaSewa' },
-            { id: 'tarikhPulang', summaryId: 'summaryTarikhPulang', name: 'tarikhPulang' },
-            { id: 'masaPulang', summaryId: 'summaryMasaPulang', name: 'masaPulang' },
-            { id: 'bilanganHari', summaryId: 'summaryBilHari', name: 'bilanganHari' },
-            { id: 'destinasi', summaryId: 'summaryDestinasi', name: 'destinasi' },
-            { id: 'harga', summaryId: 'summaryHarga', name: 'harga' },
-            { id: 'deposit', summaryId: 'summaryDeposit', name: 'deposit' },
-            { id: 'namaPenyewa', summaryId: 'summaryNamaPenyewa', name: 'namaPenyewa' },
-            { id: 'noIC', summaryId: 'summaryNoKP', name: 'noIC' },
-            { id: 'noHP', summaryId: 'summaryNoHPTel', name: 'noHP' },
-            { id: 'alamatPenyewa', summaryId: 'summaryAlamat', name: 'alamatPenyewa' },
-    
+        // Data for vehicle options
+        const vehicleOptions = {
+            "Perodua Myvi X": ["VDS4675"],
+            "Perodua Myvi 1500 SE": ["WC8182P"]
+        };
+
+        // Pricing data for vehicles (based on your request)
+        const rentalPrices = {
+            "Perodua Myvi X": { // VDS4675
+                weekday: 119,
+                weekend: 139
+            },
+            "Perodua Myvi 1500 SE": { // WC8182P
+                weekday: 89,
+                weekend: 109
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('rentalForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const resetBtn = document.getElementById('resetBtn');
+
+            // --- Form Field Mapping and Summary Update ---
+            const inputFieldsMapping = [
+                { id: 'jenisKenderaan', summaryId: 'summaryJenisKenderaan' },
+                { id: 'noPendaftaranKenderaan', summaryId: 'summaryNoPendaftaran' },
+                { id: 'tarikhSewa', summaryId: 'summaryTarikhSewa' },
+                { id: 'masaSewa', summaryId: 'summaryMasaSewa' },
+                { id: 'tarikhPulang', summaryId: 'summaryTarikhPulang' },
+                { id: 'masaPulang', summaryId: 'summaryMasaPulang' },
+                { id: 'destinasi', summaryId: 'summaryDestinasi' },
+                { id: 'harga', summaryId: 'summaryHarga' },
+                { id: 'deposit', summaryId: 'summaryDeposit' },
+                { id: 'namaPenyewa', summaryId: 'summaryNamaPenyewa' },
+                { id: 'noIC', summaryId: 'summaryNoKP' },
+                { id: 'noHP', summaryId: 'summaryNoHPTel' },
+                { id: 'alamatPenyewa', summaryId: 'summaryAlamat' },
+                { id: 'pekerjaan', summaryId: 'summaryPekerjaan' },
+                { id: 'syarikat', summaryId: 'summaryNamaSyarikat' },
+                { id: 'namaPenjamin', summaryId: 'summaryNamaPenjamin' },
+                { id: 'noICPenjamin', summaryId: 'summaryNoICPenjamin' },
+                { id: 'noHPPenjamin', summaryId: 'summaryNoHPPenjamin' },
+                { id: 'alamatPenjamin', summaryId: 'summaryAlamatPenjamin' }
+            ];
+
+            inputFieldsMapping.forEach(field => {
+                const inputElement = document.getElementById(field.id);
+                const summaryElement = field.summaryId ? document.getElementById(field.summaryId) : null;
+
+                if (inputElement) {
+                    const updateSummaryAndValidity = () => {
+                        if (summaryElement) {
+                            summaryElement.value = inputElement.value;
+                        }
+                        checkFormValidity();
+                    };
+
+                    inputElement.addEventListener('input', updateSummaryAndValidity);
+                    if (inputElement.tagName === 'SELECT' || inputElement.type === 'date' || inputElement.type === 'time') {
+                        inputElement.addEventListener('change', updateSummaryAndValidity);
+                    }
+                }
+            });
+
+            // --- Auto-calculate "NUMBER OF DAYS" and "DEPOSIT" ---
+            const tarikhSewaInput = document.getElementById('tarikhSewa');
+            const tarikhPulangInput = document.getElementById('tarikhPulang');
+            const bilanganHariInput = document.getElementById('bilanganHari');
+            const summaryBilanganHariInput = document.getElementById('summaryBilanganHari');
+            const depositInput = document.getElementById('deposit');
+            const summaryDepositInput = document.getElementById('summaryDeposit');
+
+            function calculateDaysAndDeposit() {
+                const sewaDate = new Date(tarikhSewaInput.value);
+                const pulangDate = new Date(tarikhPulangInput.value);
+                let calculatedDeposit = '';
+                let diffDays = '';
+
+                if (tarikhSewaInput.value && tarikhPulangInput.value && pulangDate >= sewaDate) {
+                    const diffTime = Math.abs(pulangDate - sewaDate);
+                    diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // Add one day to include both start and end dates
+                    
+                    if (diffDays < 3) {
+                        calculatedDeposit = 200;
+                    } else {
+                        calculatedDeposit = 300;
+                    }
+                }
+
+                bilanganHariInput.value = diffDays;
+                summaryBilanganHariInput.value = diffDays;
+                depositInput.value = calculatedDeposit;
+                summaryDepositInput.value = calculatedDeposit;
+
+                checkFormValidity(); // Re-check validity after calculation
+            }
+
+            tarikhSewaInput.addEventListener('change', calculateDaysAndDeposit);
+            tarikhPulangInput.addEventListener('change', calculateDaysAndDeposit);
+
+            // --- Helper to determine if a date is a weekend ---
+            function isWeekend(dateString) {
+                if (!dateString) return false;
+                const date = new Date(dateString);
+                const dayOfWeek = date.getDay(); // 0 = Sunday, 6 = Saturday
+                return (dayOfWeek === 0 || dayOfWeek === 6);
+            }
+
+            // --- Calculate and set rental price ---
+            const hargaInput = document.getElementById('harga');
+            const summaryHargaInput = document.getElementById('summaryHarga');
+            const jenisKenderaanSelect = document.getElementById('jenisKenderaan');
+
+            function calculateRentalPrice() {
+                const selectedVehicleType = jenisKenderaanSelect.value;
+                const rentalDate = tarikhSewaInput.value;
+                let price = '';
+
+                if (selectedVehicleType && rentalDate) {
+                    const pricing = rentalPrices[selectedVehicleType];
+                    if (pricing) {
+                        if (isWeekend(rentalDate)) {
+                            price = pricing.weekend;
+                        } else {
+                            price = pricing.weekday;
+                        }
+                    }
+                }
+                hargaInput.value = price;
+                summaryHargaInput.value = price;
+                checkFormValidity();
+            }
+            
+            jenisKenderaanSelect.addEventListener('change', calculateRentalPrice);
+            tarikhSewaInput.addEventListener('change', calculateRentalPrice);
+
+
+            // --- Set current date for "Rental Date" and signature fields ---
+            const fixedDate = new Date('2025-07-01T13:52:50'); // Current time: Tuesday, July 1, 2025 at 1:52:50 PM +08
+            const yyyy = fixedDate.getFullYear();
+            const mm = String(fixedDate.getMonth() + 1).padStart(2, '0');
+            const dd = String(fixedDate.getDate()).padStart(2, '0');
+            const formattedDate = `${yyyy}-${mm}-${dd}`;
+
+            if (tarikhSewaInput) {
+                tarikhSewaInput.value = formattedDate;
+            }
+            document.getElementById('tarikhPenyewaTandatangan').value = formattedDate;
+            document.getElementById('tarikhPemilikTandatangan').value = formattedDate;
+
+            // --- Dependent dropdowns (Vehicle Type and Registration No.) ---
+            const noPendaftaranSelect = document.getElementById('noPendaftaranKenderaan');
+
+            function updateNoPendaftaranOptions() {
+                const selectedJenis = jenisKenderaanSelect.value;
+                noPendaftaranSelect.innerHTML = '<option value="">Select Registration Number</option>'; // Clear existing options and add default
+
+                if (selectedJenis) {
+                    noPendaftaranSelect.removeAttribute('disabled');
+                    const options = vehicleOptions[selectedJenis];
+                    options.forEach(plate => {
+                        const optionElement = document.createElement('option');
+                        optionElement.value = plate;
+                        optionElement.textContent = plate;
+                        noPendaftaranSelect.appendChild(optionElement);
+                    });
+                     // Automatically select the first option if only one exists
+                    if (options.length === 1) {
+                        noPendaftaranSelect.value = options[0];
+                    }
+                } else {
+                    noPendaftaranSelect.setAttribute('disabled', 'true');
+                    const defaultOption = document.createElement('option');
+                    defaultOption.value = "";
+                    defaultOption.textContent = "Please Select Vehicle Type First";
+                    noPendaftaranSelect.appendChild(defaultOption);
+                }
+                const event = new Event('change');
+                noPendaftaranSelect.dispatchEvent(event); // Trigger change event for summary update
+                checkFormValidity(); // Re-check validity after updating options
+            }
+
+            jenisKenderaanSelect.addEventListener('change', updateNoPendaftaranOptions);
+
+            // --- Form Validity Check and Submit Button State ---
+            function checkFormValidity() {
+                submitBtn.disabled = !form.checkValidity();
+            }
+
+            // --- Confirmation on Submit ---
+            form.addEventListener('submit', function(event) {
+                if (!confirm('Are you sure you want to submit this agreement? Please ensure all information is correct.')) {
+                    event.preventDefault(); // Stop the form from submitting
+                }
+            });
+
+            // --- Confirmation on Reset ---
+            resetBtn.addEventListener('click', function(event) {
+                if (!confirm('Are you sure you want to clear all form fields?')) {
+                    event.preventDefault(); // Stop the form from resetting
+                } else {
+                    // Re-initialize certain fields after browser's reset completes
+                    setTimeout(() => {
+                        tarikhSewaInput.value = formattedDate;
+                        document.getElementById('tarikhPenyewaTandatangan').value = formattedDate;
+                        document.getElementById('tarikhPemilikTandatangan').value = formattedDate;
+                        updateNoPendaftaranOptions(); // Reset vehicle registration options
+                        calculateDaysAndDeposit(); // Reset calculated fields
+                        calculateRentalPrice(); // Recalculate price on reset
+                        checkFormValidity(); // Re-check validity after reset
+                    }, 0);
+                }
+            });
+
+            // --- Initial calls on page load ---
+            updateNoPendaftaranOptions(); // Populate vehicle options if any are pre-selected
+            calculateDaysAndDeposit(); // Calculate initial days and deposit if dates are pre-filled
+            calculateRentalPrice(); // Calculate initial rental price
+            checkFormValidity(); // Set initial state of submit button
+        });
+    </script>
+</body>
+</html>
